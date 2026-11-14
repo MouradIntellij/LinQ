@@ -34,7 +34,7 @@ export default function App() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="text-5xl">⚡</span>
               <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 bg-clip-text text-transparent">
-                Exercices LINQ en C#
+                Exercices LINQ en C#  Mourad Sehboub!
               </h1>
             </div>
             <p className="text-lg text-purple-200 max-w-3xl mx-auto mt-4">

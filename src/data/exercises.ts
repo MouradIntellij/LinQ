@@ -1,3 +1,5 @@
+
+
 export type Level = 1 | 2 | 3 | 4;
 
 export interface Exercise {
@@ -129,7 +131,7 @@ using System.Linq;
 using System.Collections.Generic;
 
 List<string> prenoms = new List<string> 
-{ "Omar", "Alice", "Youssef", "Fatima", "Karim", "Sara" };
+{ "Luc", "Alice", "Youssef", "Fatima", "Sandra", "Sara" };
 
 // TODO: Triez par ordre alphabétique
 // var tries = ...
@@ -141,14 +143,14 @@ using System.Linq;
 using System.Collections.Generic;
 
 List<string> prenoms = new List<string> 
-{ "Omar", "Alice", "Youssef", "Fatima", "Karim", "Sara" };
+{ "Luc", "Alice", "Youssef", "Fatima", "Sandra", "Sara" };
 
 // Tri alphabétique (croissant)
 var tries = prenoms.OrderBy(p => p);
 Console.WriteLine("Ordre alphabétique :");
 foreach (var p in tries)
     Console.Write(p + " ");
-// Résultat : Alice Fatima Karim Omar Sara Youssef
+// Résultat : Alice Fatima Luc  Sandra Sara Youssef
 
 Console.WriteLine();
 
@@ -157,7 +159,7 @@ var triesInverse = prenoms.OrderByDescending(p => p);
 Console.WriteLine("Ordre inverse :");
 foreach (var p in triesInverse)
     Console.Write(p + " ");
-// Résultat : Youssef Sara Omar Karim Fatima Alice
+// Résultat : Youssef Sara Sandra Luc  Fatima Alice
 
 Console.WriteLine();
 
