@@ -1,8 +1,13 @@
 import { useState } from 'react';
 import ExerciseCard from './components/ExerciseCard';
+import PdfViewer from './components/PdfViewer';
+import Travaux from './components/Travaux';
 import { exercises, Level } from './data/exercises';
 
+type View = 'exercices' | 'cours' | 'travaux';
+
 export default function App() {
+  const [view, setView] = useState<View>('exercices');
   const [selectedLevel, setSelectedLevel] = useState<Level | 'all'>('all');
   const [expandedExercise, setExpandedExercise] = useState<number | null>(null);
 
@@ -34,7 +39,7 @@ export default function App() {
             <div className="flex items-center justify-center gap-3 mb-4">
               <span className="text-5xl">⚡</span>
               <h1 className="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-purple-300 via-pink-300 to-cyan-300 bg-clip-text text-transparent">
-                Exercices LINQ en C#  Mourad Sehboub!
+                Exercices LINQ en C# Mourad Sehboub !
               </h1>
             </div>
             <p className="text-lg text-purple-200 max-w-3xl mx-auto mt-4">
@@ -53,9 +58,9 @@ export default function App() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-wrap gap-3 justify-center">
           <button
-            onClick={() => setSelectedLevel('all')}
+            onClick={() => { setView('exercices'); setSelectedLevel('all'); }}
             className={`px-5 py-2.5 rounded-full font-medium transition-all duration-300 ${
-              selectedLevel === 'all'
+              view === 'exercices' && selectedLevel === 'all'
                 ? 'bg-white text-slate-900 shadow-lg shadow-white/20'
                 : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
             }`}
@@ -65,9 +70,9 @@ export default function App() {
           {([1, 2, 3, 4] as Level[]).map(level => (
             <button
               key={level}
-              onClick={() => setSelectedLevel(level)}
+              onClick={() => { setView('exercices'); setSelectedLevel(level); }}
               className={`px-5 py-2.5 rounded-full font-medium transition-all duration-300 ${
-                selectedLevel === level
+                view === 'exercices' && selectedLevel === level
                   ? `bg-gradient-to-r ${levelColors[level]} text-white shadow-lg`
                   : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
               }`}
@@ -75,10 +80,34 @@ export default function App() {
               {levelNames[level]}
             </button>
           ))}
+
+          <span className="hidden sm:block w-px bg-white/20 mx-1" aria-hidden="true"></span>
+
+          <button
+            onClick={() => setView('cours')}
+            className={`px-5 py-2.5 rounded-full font-medium transition-all duration-300 ${
+              view === 'cours'
+                ? 'bg-gradient-to-r from-purple-400 to-fuchsia-500 text-white shadow-lg'
+                : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+            }`}
+          >
+            📘 Cours
+          </button>
+          <button
+            onClick={() => setView('travaux')}
+            className={`px-5 py-2.5 rounded-full font-medium transition-all duration-300 ${
+              view === 'travaux'
+                ? 'bg-gradient-to-r from-purple-400 to-fuchsia-500 text-white shadow-lg'
+                : 'bg-white/10 text-white hover:bg-white/20 border border-white/20'
+            }`}
+          >
+            📝 Travaux
+          </button>
         </div>
       </div>
 
       {/* Stats */}
+      {view === 'exercices' && (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           {([1, 2, 3, 4] as Level[]).map(level => (
@@ -91,9 +120,15 @@ export default function App() {
           ))}
         </div>
       </div>
+      )}
 
-      {/* Exercises */}
+      {/* Contenu central */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+        {view === 'cours' && (
+          <PdfViewer src={`${import.meta.env.BASE_URL}pages/notionLinQ.pdf`} title="📘 Cours LINQ" />
+        )}
+        {view === 'travaux' && <Travaux />}
+        {view === 'exercices' && (
         <div className="space-y-4">
           {filteredExercises.map((exercise, index) => (
             <ExerciseCard
@@ -105,12 +140,13 @@ export default function App() {
             />
           ))}
         </div>
+        )}
       </main>
 
       {/* Footer */}
       <footer className="border-t border-white/10 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center text-purple-300 text-sm">
-          <p>💡 Conseil : Copiez ces exercices dans Visual Studio 2022 (.NET 8.0) et testez-les !</p>
+          <p>💡 Conseil : Copiez ces exercices dans Visual Studio 2026 (.NET 8.0) et testez-les !</p>
           <p className="mt-2 text-purple-400">LINQ = Language Integrated Query — La puissance des requêtes directement dans C#</p>
         </div>
       </footer>
